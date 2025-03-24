@@ -2,7 +2,7 @@
 
 
 Here is a example output :
-![alt text](./Screenshot 2025-03-24 174156.png)
+![alt text](./ss.png)
 
 make sure we update pandas after requirements files are installed 
 because the llm requests for lower versoin of pandas but pandasai requests for latest versoin of pandas.
