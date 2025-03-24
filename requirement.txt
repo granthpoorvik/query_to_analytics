@@ -1,0 +1,5 @@
+Pandasai[connectors]
+streamlit
+typing
+
+ 
