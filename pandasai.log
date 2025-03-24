@@ -7770,3 +7770,882 @@ result = {'type': 'dataframe', 'value': result_df}
 0         2     882675
 1         1     248589}
 2025-03-24 10:49:50 [INFO] Executing Step 8: ResultParsing
+2025-03-24 17:14:46 [INFO] Question: which vendor makes the more money with minimum trip_distance draw graph accordingly 
+
+2025-03-24 17:14:46 [INFO] Running PandasAI with local LLM...
+2025-03-24 17:14:46 [INFO] Prompt ID: 5451aa1b-5a44-480d-b98b-2786be21bba2
+2025-03-24 17:14:46 [INFO] Executing Pipeline: GenerateChatPipeline
+2025-03-24 17:14:48 [INFO] Executing Step 0: ValidatePipelineInput
+2025-03-24 17:14:48 [INFO] Executing Step 1: CacheLookup
+2025-03-24 17:14:48 [INFO] Executing Step 2: PromptGeneration
+2025-03-24 17:14:48 [INFO] Querying without using training data.
+2025-03-24 17:14:49 [INFO] Querying without using training docs.
+2025-03-24 17:14:49 [INFO] Using prompt: <dataframe>
+dfs[0]:1131455x20
+Unnamed: 0,VendorID,tpep_pickup_datetime,tpep_dropoff_datetime,passenger_count,trip_distance,RatecodeID,store_and_fwd_flag,PULocationID,DOLocationID,payment_type,fare_amount,extra,mta_tax,tip_amount,tolls_amount,improvement_surcharge,total_amount,congestion_surcharge,Airport_fee
+170429,2,2025-01-12 12:49:56,2025-01-06 05:45:03,6.0,31.3,6.0,N,63,229,5,51.5,10.75,-0.5,12.94,10.5,1.0,151.32,0.0,-1.75
+827347,1,2025-01-12 09:31:03,2025-01-03 11:30:56,5.0,42.69,5.0,Y,218,202,3,130.1,-1.0,4.0,3.47,18.78,-1.0,71.02,2.5,0.75
+279735,7,2025-01-05 15:47:15,2025-01-04 16:25:53,9.0,22.63,99.0,Y,140,78,4,42.06,11.0,4.75,10.78,13.4,0.0,108.02,-2.5,1.75
+</dataframe>
+
+
+
+
+Update this initial code:
+```python
+# TODO: import the required dependencies
+import pandas as pd
+
+# Write code here
+
+# Declare result var: 
+type (possible values "string", "number", "dataframe", "plot"). Examples: { "type": "string", "value": f"The highest salary is {highest_salary}." } or { "type": "number", "value": 125 } or { "type": "dataframe", "value": pd.DataFrame({...}) } or { "type": "plot", "value": "temp_chart.png" }
+
+```
+
+
+
+
+
+
+
+### QUERY
+ which vendor makes the more money with minimum trip_distance draw graph accordingly 
+
+
+Variable `dfs: list[pd.DataFrame]` is already declared.
+
+At the end, declare "result" variable as a dictionary of type and value.
+
+If you are asked to plot a chart, use "matplotlib" for charts, save as png.
+
+
+Generate python code and return full updated code:
+2025-03-24 17:14:49 [INFO] Executing Step 3: CodeGenerator
+2025-03-24 17:16:17 [INFO] HTTP Request: POST http://localhost:11434/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-24 17:16:17 [INFO] Prompt used:
+            <dataframe>
+dfs[0]:1131455x20
+Unnamed: 0,VendorID,tpep_pickup_datetime,tpep_dropoff_datetime,passenger_count,trip_distance,RatecodeID,store_and_fwd_flag,PULocationID,DOLocationID,payment_type,fare_amount,extra,mta_tax,tip_amount,tolls_amount,improvement_surcharge,total_amount,congestion_surcharge,Airport_fee
+170429,2,2025-01-12 12:49:56,2025-01-06 05:45:03,6.0,31.3,6.0,N,63,229,5,51.5,10.75,-0.5,12.94,10.5,1.0,151.32,0.0,-1.75
+827347,1,2025-01-12 09:31:03,2025-01-03 11:30:56,5.0,42.69,5.0,Y,218,202,3,130.1,-1.0,4.0,3.47,18.78,-1.0,71.02,2.5,0.75
+279735,7,2025-01-05 15:47:15,2025-01-04 16:25:53,9.0,22.63,99.0,Y,140,78,4,42.06,11.0,4.75,10.78,13.4,0.0,108.02,-2.5,1.75
+</dataframe>
+
+
+
+
+Update this initial code:
+```python
+# TODO: import the required dependencies
+import pandas as pd
+
+# Write code here
+
+# Declare result var: 
+type (possible values "string", "number", "dataframe", "plot"). Examples: { "type": "string", "value": f"The highest salary is {highest_salary}." } or { "type": "number", "value": 125 } or { "type": "dataframe", "value": pd.DataFrame({...}) } or { "type": "plot", "value": "temp_chart.png" }
+
+```
+
+
+
+
+
+
+
+### QUERY
+ which vendor makes the more money with minimum trip_distance draw graph accordingly 
+
+
+Variable `dfs: list[pd.DataFrame]` is already declared.
+
+At the end, declare "result" variable as a dictionary of type and value.
+
+If you are asked to plot a chart, use "matplotlib" for charts, save as png.
+
+
+Generate python code and return full updated code:
+            
+2025-03-24 17:16:17 [INFO] Code generated:
+            ```
+            import pandas as pd
+from matplotlib import pyplot as plt
+
+# Assuming dfs is already defined with the provided dataframe
+df = dfs[0]
+
+# Convert trip_distance to float
+df['trip_distance'] = df['trip_distance'].astype(float)
+
+# Filter trips where trip distance is less than or equal to 1 unit (minimum)
+min_trip_distance_df = df[df['trip_distance'] <= 2]
+
+# Group by VendorID and sum the total_amount for each vendor
+vendor_revenue = min_trip_distance_df.groupby('VendorID')['total_amount'].sum().reset_index()
+
+# Determine which vendor makes more money with minimum trip distance
+max_revenue_vendor = vendor_revenue[vendor_revenue['total_amount'] == vendor_revenue["total_amount"].max()]["VendorID"].values[0]
+most_money_with_min_distance = f"The vendor making the most money with minimum trip distance is Vendor {max_revenue_vendor}."
+
+# Create a bar chart to visualize revenue for vendors with minimum trip distance
+plt.figure(figsize=(10, 6))
+plt.bar(vendor_revenue['VendorID'], vendor_revenue['total_amount'], color='skyblue')
+plt.xlabel('VendorID')
+plt.ylabel('Total Revenue')
+plt.title('Revenue for Vendors with Minimum Trip Distance')
+plt.savefig('temp_chart.png')
+
+# Declare result var: 
+result = { "type": "dataframe", "value": vendor_revenue }
+
+# Print the highest revenue generating vendor
+print(most_money_with_min_distance)
+            ```
+            
+2025-03-24 17:16:17 [INFO] Executing Step 4: CachePopulation
+2025-03-24 17:16:17 [INFO] Executing Step 5: CodeCleaning
+2025-03-24 17:16:17 [INFO] Saving charts to C:\Users\grant\query2\exports\charts\temp_chart.png
+2025-03-24 17:16:17 [INFO] 
+Code running:
+```
+df = dfs[0]
+df['trip_distance'] = df['trip_distance'].astype(float)
+min_trip_distance_df = df[df['trip_distance'] <= 2]
+vendor_revenue = min_trip_distance_df.groupby('VendorID')['total_amount'].sum().reset_index()
+max_revenue_vendor = vendor_revenue[vendor_revenue['total_amount'] == vendor_revenue['total_amount'].max()]['VendorID'].values[0]
+most_money_with_min_distance = f'The vendor making the most money with minimum trip distance is Vendor {max_revenue_vendor}.'
+plt.figure(figsize=(10, 6))
+plt.bar(vendor_revenue['VendorID'], vendor_revenue['total_amount'], color='skyblue')
+plt.xlabel('VendorID')
+plt.ylabel('Total Revenue')
+plt.title('Revenue for Vendors with Minimum Trip Distance')
+plt.savefig('C:/Users/grant/query2/exports/charts/temp_chart.png')
+result = {'type': 'dataframe', 'value': vendor_revenue}
+print(most_money_with_min_distance)
+        ```
+2025-03-24 17:16:17 [INFO] Executing Step 6: CodeExecution
+2025-03-24 17:16:17 [INFO] Executing Step 7: ResultValidation
+2025-03-24 17:16:17 [INFO] Answer: {'type': 'dataframe', 'value':    VendorID  total_amount
+0         1    2587273.77
+1         2    8719248.07
+2         7       2435.31}
+2025-03-24 17:16:17 [INFO] Executing Step 8: ResultParsing
+2025-03-24 17:25:22 [INFO] Question: draw graph accordingly which vendor makes the more money with minimum trip_distance 
+
+2025-03-24 17:25:22 [INFO] Running PandasAI with local LLM...
+2025-03-24 17:25:22 [INFO] Prompt ID: 289a089b-afc6-429e-986f-542b33f82291
+2025-03-24 17:25:22 [INFO] Executing Pipeline: GenerateChatPipeline
+2025-03-24 17:25:23 [INFO] Executing Step 0: ValidatePipelineInput
+2025-03-24 17:25:23 [INFO] Executing Step 1: CacheLookup
+2025-03-24 17:25:23 [INFO] Executing Step 2: PromptGeneration
+2025-03-24 17:25:24 [INFO] Querying without using training data.
+2025-03-24 17:25:25 [INFO] Querying without using training docs.
+2025-03-24 17:25:25 [INFO] Using prompt: <dataframe>
+dfs[0]:1131455x20
+Unnamed: 0,VendorID,tpep_pickup_datetime,tpep_dropoff_datetime,passenger_count,trip_distance,RatecodeID,store_and_fwd_flag,PULocationID,DOLocationID,payment_type,fare_amount,extra,mta_tax,tip_amount,tolls_amount,improvement_surcharge,total_amount,congestion_surcharge,Airport_fee
+12045,7,2025-01-05 16:47:40,2025-01-12 09:20:23,4.0,2.63,5.0,N,93,256,3,-1.0,1.0,0.5,7.06,-1.75,1.0,86.77,-2.5,0.75
+808689,2,2025-01-07 12:19:07,2025-01-03 20:12:47,8.0,28.59,1.0,Y,205,79,4,15.3,11.0,0.0,19.19,9.69,0.0,61.05,0.0,0.0
+1093571,1,2025-01-08 04:36:33,2025-01-02 02:45:46,9.0,26.61,99.0,Y,247,167,5,57.64,15.0,4.75,43.84,15.89,-1.0,86.72,2.5,1.25
+</dataframe>
+
+
+
+
+Update this initial code:
+```python
+# TODO: import the required dependencies
+import pandas as pd
+
+# Write code here
+
+# Declare result var: 
+type (possible values "string", "number", "dataframe", "plot"). Examples: { "type": "string", "value": f"The highest salary is {highest_salary}." } or { "type": "number", "value": 125 } or { "type": "dataframe", "value": pd.DataFrame({...}) } or { "type": "plot", "value": "temp_chart.png" }
+
+```
+
+
+
+
+
+
+
+### QUERY
+ draw graph accordingly which vendor makes the more money with minimum trip_distance 
+
+
+Variable `dfs: list[pd.DataFrame]` is already declared.
+
+At the end, declare "result" variable as a dictionary of type and value.
+
+If you are asked to plot a chart, use "matplotlib" for charts, save as png.
+
+
+Generate python code and return full updated code:
+2025-03-24 17:25:25 [INFO] Executing Step 3: CodeGenerator
+2025-03-24 17:26:23 [INFO] HTTP Request: POST http://localhost:11434/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-24 17:26:23 [INFO] Prompt used:
+            <dataframe>
+dfs[0]:1131455x20
+Unnamed: 0,VendorID,tpep_pickup_datetime,tpep_dropoff_datetime,passenger_count,trip_distance,RatecodeID,store_and_fwd_flag,PULocationID,DOLocationID,payment_type,fare_amount,extra,mta_tax,tip_amount,tolls_amount,improvement_surcharge,total_amount,congestion_surcharge,Airport_fee
+12045,7,2025-01-05 16:47:40,2025-01-12 09:20:23,4.0,2.63,5.0,N,93,256,3,-1.0,1.0,0.5,7.06,-1.75,1.0,86.77,-2.5,0.75
+808689,2,2025-01-07 12:19:07,2025-01-03 20:12:47,8.0,28.59,1.0,Y,205,79,4,15.3,11.0,0.0,19.19,9.69,0.0,61.05,0.0,0.0
+1093571,1,2025-01-08 04:36:33,2025-01-02 02:45:46,9.0,26.61,99.0,Y,247,167,5,57.64,15.0,4.75,43.84,15.89,-1.0,86.72,2.5,1.25
+</dataframe>
+
+
+
+
+Update this initial code:
+```python
+# TODO: import the required dependencies
+import pandas as pd
+
+# Write code here
+
+# Declare result var: 
+type (possible values "string", "number", "dataframe", "plot"). Examples: { "type": "string", "value": f"The highest salary is {highest_salary}." } or { "type": "number", "value": 125 } or { "type": "dataframe", "value": pd.DataFrame({...}) } or { "type": "plot", "value": "temp_chart.png" }
+
+```
+
+
+
+
+
+
+
+### QUERY
+ draw graph accordingly which vendor makes the more money with minimum trip_distance 
+
+
+Variable `dfs: list[pd.DataFrame]` is already declared.
+
+At the end, declare "result" variable as a dictionary of type and value.
+
+If you are asked to plot a chart, use "matplotlib" for charts, save as png.
+
+
+Generate python code and return full updated code:
+            
+2025-03-24 17:26:23 [INFO] Code generated:
+            ```
+            # TODO: import the required dependencies
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Process the data
+df = dfs[0]  # Assuming there is only one DataFrame in the list for simplicity
+df['total_revenue'] = df['fare_amount'] + df['extra'] + df['mta_tax'] + df['tip_amount'] + df['tolls_amount'] + df['improvement_surcharge']
+
+# Group by VendorID and sum up revenues
+vendor_revenues = df.groupby('VendorID')['total_revenue'].sum().reset_index()
+
+# Filter vendors with minimum trip_distance
+min_trip_distance_vendor_id = vendor_revenues[vendor_revenues['trip_distance'] == vendor_revenues['trip_distance'].min()]['VendorID']
+filtered_vendors = vendor_revenues[vendor_revenues['VendorID'].isin(min_trip_distance_vendor_id)]
+
+# Create the bar chart
+plt.figure(figsize=(10, 6))
+plt.bar(filtered_vendors['VendorID'], filtered_vendors['total_revenue'], color='skyblue')
+plt.xlabel('Vendor ID')
+plt.ylabel('Total Revenue')
+plt.title('Revenue of Vendors with Minimum Trip Distance')
+plt.xticks(rotation=0)
+plt.savefig("temp_chart.png")
+plt.close()
+
+# Declare result var
+result = { "type": "plot", "value": "temp_chart.png" }
+            ```
+            
+2025-03-24 17:26:23 [INFO] Executing Step 4: CachePopulation
+2025-03-24 17:26:23 [INFO] Executing Step 5: CodeCleaning
+2025-03-24 17:26:23 [INFO] Saving charts to C:\Users\grant\query2\exports\charts\temp_chart.png
+2025-03-24 17:26:23 [INFO] 
+Code running:
+```
+df = dfs[0]
+df['total_revenue'] = df['fare_amount'] + df['extra'] + df['mta_tax'] + df['tip_amount'] + df['tolls_amount'] + df['improvement_surcharge']
+vendor_revenues = df.groupby('VendorID')['total_revenue'].sum().reset_index()
+min_trip_distance_vendor_id = vendor_revenues[vendor_revenues['trip_distance'] == vendor_revenues['trip_distance'].min()]['VendorID']
+filtered_vendors = vendor_revenues[vendor_revenues['VendorID'].isin(min_trip_distance_vendor_id)]
+plt.figure(figsize=(10, 6))
+plt.bar(filtered_vendors['VendorID'], filtered_vendors['total_revenue'], color='skyblue')
+plt.xlabel('Vendor ID')
+plt.ylabel('Total Revenue')
+plt.title('Revenue of Vendors with Minimum Trip Distance')
+plt.xticks(rotation=0)
+plt.savefig('C:/Users/grant/query2/exports/charts/temp_chart.png')
+plt.close()
+result = {'type': 'plot', 'value': 'C:/Users/grant/query2/exports/charts/temp_chart.png'}
+        ```
+2025-03-24 17:26:23 [INFO] Executing Step 6: CodeExecution
+2025-03-24 17:26:23 [ERROR] Failed with error: Traceback (most recent call last):
+  File "C:\Users\grant\query2\env\lib\site-packages\pandas\core\indexes\base.py", line 3805, in get_loc
+    return self._engine.get_loc(casted_key)
+  File "index.pyx", line 167, in pandas._libs.index.IndexEngine.get_loc
+  File "index.pyx", line 196, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas\\_libs\\hashtable_class_helper.pxi", line 7081, in pandas._libs.hashtable.PyObjectHashTable.get_item
+  File "pandas\\_libs\\hashtable_class_helper.pxi", line 7089, in pandas._libs.hashtable.PyObjectHashTable.get_item
+KeyError: 'trip_distance'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\grant\query2\env\lib\site-packages\pandasai\pipelines\chat\code_execution.py", line 85, in execute
+    result = self.execute_code(code_to_run, code_context)
+  File "C:\Users\grant\query2\env\lib\site-packages\pandasai\pipelines\chat\code_execution.py", line 174, in execute_code
+    exec(code, environment)
+  File "<string>", line 4, in <module>
+  File "C:\Users\grant\query2\env\lib\site-packages\pandas\core\frame.py", line 4102, in __getitem__
+    indexer = self.columns.get_loc(key)
+  File "C:\Users\grant\query2\env\lib\site-packages\pandas\core\indexes\base.py", line 3812, in get_loc
+    raise KeyError(key) from err
+KeyError: 'trip_distance'
+
+2025-03-24 17:26:23 [WARNING] Failed to execute code retrying with a correction framework [retry number: 1]
+2025-03-24 17:26:23 [INFO] Executing Pipeline: ErrorCorrectionPipeline
+2025-03-24 17:26:23 [INFO] Executing Step 0: ErrorPromptGeneration
+2025-03-24 17:26:23 [INFO] Using prompt: <dataframe>
+dfs[0]:1131455x20
+Unnamed: 0,VendorID,tpep_pickup_datetime,tpep_dropoff_datetime,passenger_count,trip_distance,RatecodeID,store_and_fwd_flag,PULocationID,DOLocationID,payment_type,fare_amount,extra,mta_tax,tip_amount,tolls_amount,improvement_surcharge,total_amount,congestion_surcharge,Airport_fee
+12045,7,2025-01-05 16:47:40,2025-01-12 09:20:23,4.0,2.63,5.0,N,93,256,3,-1.0,1.0,0.5,7.06,-1.75,1.0,86.77,-2.5,0.75
+808689,2,2025-01-07 12:19:07,2025-01-03 20:12:47,8.0,28.59,1.0,Y,205,79,4,15.3,11.0,0.0,19.19,9.69,0.0,61.05,0.0,0.0
+1093571,1,2025-01-08 04:36:33,2025-01-02 02:45:46,9.0,26.61,99.0,Y,247,167,5,57.64,15.0,4.75,43.84,15.89,-1.0,86.72,2.5,1.25
+</dataframe>
+
+
+The user asked the following question:
+### QUERY
+ draw graph accordingly which vendor makes the more money with minimum trip_distance 
+
+
+You generated this python code:
+df = dfs[0]
+df['total_revenue'] = df['fare_amount'] + df['extra'] + df['mta_tax'] + df['tip_amount'] + df['tolls_amount'] + df['improvement_surcharge']
+vendor_revenues = df.groupby('VendorID')['total_revenue'].sum().reset_index()
+min_trip_distance_vendor_id = vendor_revenues[vendor_revenues['trip_distance'] == vendor_revenues['trip_distance'].min()]['VendorID']
+filtered_vendors = vendor_revenues[vendor_revenues['VendorID'].isin(min_trip_distance_vendor_id)]
+plt.figure(figsize=(10, 6))
+plt.bar(filtered_vendors['VendorID'], filtered_vendors['total_revenue'], color='skyblue')
+plt.xlabel('Vendor ID')
+plt.ylabel('Total Revenue')
+plt.title('Revenue of Vendors with Minimum Trip Distance')
+plt.xticks(rotation=0)
+plt.savefig('C:/Users/grant/query2/exports/charts/temp_chart.png')
+plt.close()
+result = {'type': 'plot', 'value': 'C:/Users/grant/query2/exports/charts/temp_chart.png'}
+
+It fails with the following error:
+Traceback (most recent call last):
+  File "C:\Users\grant\query2\env\lib\site-packages\pandas\core\indexes\base.py", line 3805, in get_loc
+    return self._engine.get_loc(casted_key)
+  File "index.pyx", line 167, in pandas._libs.index.IndexEngine.get_loc
+  File "index.pyx", line 196, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas\\_libs\\hashtable_class_helper.pxi", line 7081, in pandas._libs.hashtable.PyObjectHashTable.get_item
+  File "pandas\\_libs\\hashtable_class_helper.pxi", line 7089, in pandas._libs.hashtable.PyObjectHashTable.get_item
+KeyError: 'trip_distance'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\grant\query2\env\lib\site-packages\pandasai\pipelines\chat\code_execution.py", line 85, in execute
+    result = self.execute_code(code_to_run, code_context)
+  File "C:\Users\grant\query2\env\lib\site-packages\pandasai\pipelines\chat\code_execution.py", line 174, in execute_code
+    exec(code, environment)
+  File "<string>", line 4, in <module>
+  File "C:\Users\grant\query2\env\lib\site-packages\pandas\core\frame.py", line 4102, in __getitem__
+    indexer = self.columns.get_loc(key)
+  File "C:\Users\grant\query2\env\lib\site-packages\pandas\core\indexes\base.py", line 3812, in get_loc
+    raise KeyError(key) from err
+KeyError: 'trip_distance'
+
+
+Fix the python code above and return the new python code:
+2025-03-24 17:26:23 [INFO] Executing Step 1: CodeGenerator
+2025-03-24 17:27:44 [INFO] HTTP Request: POST http://localhost:11434/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-24 17:27:44 [INFO] Prompt used:
+            <dataframe>
+dfs[0]:1131455x20
+Unnamed: 0,VendorID,tpep_pickup_datetime,tpep_dropoff_datetime,passenger_count,trip_distance,RatecodeID,store_and_fwd_flag,PULocationID,DOLocationID,payment_type,fare_amount,extra,mta_tax,tip_amount,tolls_amount,improvement_surcharge,total_amount,congestion_surcharge,Airport_fee
+12045,7,2025-01-05 16:47:40,2025-01-12 09:20:23,4.0,2.63,5.0,N,93,256,3,-1.0,1.0,0.5,7.06,-1.75,1.0,86.77,-2.5,0.75
+808689,2,2025-01-07 12:19:07,2025-01-03 20:12:47,8.0,28.59,1.0,Y,205,79,4,15.3,11.0,0.0,19.19,9.69,0.0,61.05,0.0,0.0
+1093571,1,2025-01-08 04:36:33,2025-01-02 02:45:46,9.0,26.61,99.0,Y,247,167,5,57.64,15.0,4.75,43.84,15.89,-1.0,86.72,2.5,1.25
+</dataframe>
+
+
+The user asked the following question:
+### QUERY
+ draw graph accordingly which vendor makes the more money with minimum trip_distance 
+
+
+You generated this python code:
+df = dfs[0]
+df['total_revenue'] = df['fare_amount'] + df['extra'] + df['mta_tax'] + df['tip_amount'] + df['tolls_amount'] + df['improvement_surcharge']
+vendor_revenues = df.groupby('VendorID')['total_revenue'].sum().reset_index()
+min_trip_distance_vendor_id = vendor_revenues[vendor_revenues['trip_distance'] == vendor_revenues['trip_distance'].min()]['VendorID']
+filtered_vendors = vendor_revenues[vendor_revenues['VendorID'].isin(min_trip_distance_vendor_id)]
+plt.figure(figsize=(10, 6))
+plt.bar(filtered_vendors['VendorID'], filtered_vendors['total_revenue'], color='skyblue')
+plt.xlabel('Vendor ID')
+plt.ylabel('Total Revenue')
+plt.title('Revenue of Vendors with Minimum Trip Distance')
+plt.xticks(rotation=0)
+plt.savefig('C:/Users/grant/query2/exports/charts/temp_chart.png')
+plt.close()
+result = {'type': 'plot', 'value': 'C:/Users/grant/query2/exports/charts/temp_chart.png'}
+
+It fails with the following error:
+Traceback (most recent call last):
+  File "C:\Users\grant\query2\env\lib\site-packages\pandas\core\indexes\base.py", line 3805, in get_loc
+    return self._engine.get_loc(casted_key)
+  File "index.pyx", line 167, in pandas._libs.index.IndexEngine.get_loc
+  File "index.pyx", line 196, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas\\_libs\\hashtable_class_helper.pxi", line 7081, in pandas._libs.hashtable.PyObjectHashTable.get_item
+  File "pandas\\_libs\\hashtable_class_helper.pxi", line 7089, in pandas._libs.hashtable.PyObjectHashTable.get_item
+KeyError: 'trip_distance'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\grant\query2\env\lib\site-packages\pandasai\pipelines\chat\code_execution.py", line 85, in execute
+    result = self.execute_code(code_to_run, code_context)
+  File "C:\Users\grant\query2\env\lib\site-packages\pandasai\pipelines\chat\code_execution.py", line 174, in execute_code
+    exec(code, environment)
+  File "<string>", line 4, in <module>
+  File "C:\Users\grant\query2\env\lib\site-packages\pandas\core\frame.py", line 4102, in __getitem__
+    indexer = self.columns.get_loc(key)
+  File "C:\Users\grant\query2\env\lib\site-packages\pandas\core\indexes\base.py", line 3812, in get_loc
+    raise KeyError(key) from err
+KeyError: 'trip_distance'
+
+
+Fix the python code above and return the new python code:
+            
+2025-03-24 17:27:44 [INFO] Code generated:
+            ```
+            import pandas as pd
+
+# Assuming dfs[0] is your DataFrame
+df = dfs[0]
+
+# Calculate total revenue for each row
+df['total_revenue'] = df['fare_amount'].fillna(0) + df['extra'].fillna(0) + \
+                      df['mta_tax'].fillna(0) + df['tip_amount'].fillna(0) + \
+                      df['tolls_amount'].fillna(0) + df['improvement_surcharge'].fillna(0)
+
+# Group by VendorID and sum the total revenue
+vendor_revenues = df.groupby('VendorID')['total_revenue'].sum().reset_index()
+
+# Find the minimum trip distance in the DataFrame
+min_trip_distance = df['trip_distance'].min()
+
+# Filter vendors that have trips with the minimum trip distance
+filtered_vendors = vendor_revenues[vendor_revenues['VendorID'].isin(df[df['trip_distance'] == min_trip_distance]['VendorID'])]
+
+# Plot the revenue of vendors with minimum trip distance
+plt.figure(figsize=(10, 6))
+plt.bar(filtered_vendors['VendorID'], filtered_vendors['total_revenue'], color='skyblue')
+plt.xlabel('Vendor ID')
+plt.ylabel('Total Revenue')
+plt.title('Revenue of Vendors with Minimum Trip Distance')
+plt.xticks(rotation=90)  # Rotate x-axis labels for better readability
+plt.savefig('C:/Users/grant/query2/exports/charts/temp_chart.png')
+plt.close()
+
+result = {'type': 'plot', 'value': 'C:/Users/grant/query2/exports/charts/temp_chart.png'}
+            ```
+            
+2025-03-24 17:27:44 [INFO] Executing Step 2: CodeCleaning
+2025-03-24 17:27:44 [INFO] Saving charts to C:\Users\grant\query2\exports\charts\temp_chart.png
+2025-03-24 17:27:44 [INFO] 
+Code running:
+```
+df = dfs[0]
+df['total_revenue'] = df['fare_amount'].fillna(0) + df['extra'].fillna(0) + df['mta_tax'].fillna(0) + df['tip_amount'].fillna(0) + df['tolls_amount'].fillna(0) + df['improvement_surcharge'].fillna(0)
+vendor_revenues = df.groupby('VendorID')['total_revenue'].sum().reset_index()
+min_trip_distance = df['trip_distance'].min()
+filtered_vendors = vendor_revenues[vendor_revenues['VendorID'].isin(df[df['trip_distance'] == min_trip_distance]['VendorID'])]
+plt.figure(figsize=(10, 6))
+plt.bar(filtered_vendors['VendorID'], filtered_vendors['total_revenue'], color='skyblue')
+plt.xlabel('Vendor ID')
+plt.ylabel('Total Revenue')
+plt.title('Revenue of Vendors with Minimum Trip Distance')
+plt.xticks(rotation=90)
+plt.savefig('C:/Users/grant/query2/exports/charts/temp_chart.png')
+plt.close()
+result = {'type': 'plot', 'value': 'C:/Users/grant/query2/exports/charts/temp_chart.png'}
+        ```
+2025-03-24 17:27:45 [INFO] Executing Step 7: ResultValidation
+2025-03-24 17:27:45 [INFO] Answer: {'type': 'plot', 'value': 'C:/Users/grant/query2/exports/charts/temp_chart.png'}
+2025-03-24 17:27:45 [INFO] Executing Step 8: ResultParsing
+2025-03-24 17:28:21 [INFO] Question: draw pie chart accordingly which vendor makes the more money with minimum trip_distance 
+
+2025-03-24 17:28:21 [INFO] Running PandasAI with local LLM...
+2025-03-24 17:28:21 [INFO] Prompt ID: fb2e801e-094e-4cae-a914-c14a067ce9b8
+2025-03-24 17:28:21 [INFO] Executing Pipeline: GenerateChatPipeline
+2025-03-24 17:28:22 [INFO] Executing Step 0: ValidatePipelineInput
+2025-03-24 17:28:22 [INFO] Executing Step 1: CacheLookup
+2025-03-24 17:28:22 [INFO] Executing Step 2: PromptGeneration
+2025-03-24 17:28:23 [INFO] Querying without using training data.
+2025-03-24 17:28:24 [INFO] Querying without using training docs.
+2025-03-24 17:28:24 [INFO] Using prompt: <dataframe>
+dfs[0]:1131455x20
+Unnamed: 0,VendorID,tpep_pickup_datetime,tpep_dropoff_datetime,passenger_count,trip_distance,RatecodeID,store_and_fwd_flag,PULocationID,DOLocationID,payment_type,fare_amount,extra,mta_tax,tip_amount,tolls_amount,improvement_surcharge,total_amount,congestion_surcharge,Airport_fee
+990055,2,2025-01-03 19:26:52,2025-01-03 19:46:58,1.0,34.31,3.0,N,207,141,3,83.0,9.25,0.0,26.33,12.99,1.0,192.55,0.0,0.0
+510139,7,2025-01-13 15:54:33,2025-01-06 00:10:18,0.0,0.04,99.0,N,235,28,2,-82.8,0.28,-0.5,11.67,-5.0,0.0,-121.04,-2.5,-1.75
+519623,1,2025-01-07 13:07:25,2025-01-09 21:18:23,3.0,20.85,6.0,Y,150,35,4,26.85,11.0,4.0,36.35,21.98,-1.0,94.62,2.5,0.75
+</dataframe>
+
+
+
+
+Update this initial code:
+```python
+# TODO: import the required dependencies
+import pandas as pd
+
+# Write code here
+
+# Declare result var: 
+type (possible values "string", "number", "dataframe", "plot"). Examples: { "type": "string", "value": f"The highest salary is {highest_salary}." } or { "type": "number", "value": 125 } or { "type": "dataframe", "value": pd.DataFrame({...}) } or { "type": "plot", "value": "temp_chart.png" }
+
+```
+
+
+
+
+
+
+
+### QUERY
+ draw pie chart accordingly which vendor makes the more money with minimum trip_distance 
+
+
+Variable `dfs: list[pd.DataFrame]` is already declared.
+
+At the end, declare "result" variable as a dictionary of type and value.
+
+If you are asked to plot a chart, use "matplotlib" for charts, save as png.
+
+
+Generate python code and return full updated code:
+2025-03-24 17:28:24 [INFO] Executing Step 3: CodeGenerator
+2025-03-24 17:29:16 [INFO] HTTP Request: POST http://localhost:11434/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-24 17:29:16 [INFO] Prompt used:
+            <dataframe>
+dfs[0]:1131455x20
+Unnamed: 0,VendorID,tpep_pickup_datetime,tpep_dropoff_datetime,passenger_count,trip_distance,RatecodeID,store_and_fwd_flag,PULocationID,DOLocationID,payment_type,fare_amount,extra,mta_tax,tip_amount,tolls_amount,improvement_surcharge,total_amount,congestion_surcharge,Airport_fee
+990055,2,2025-01-03 19:26:52,2025-01-03 19:46:58,1.0,34.31,3.0,N,207,141,3,83.0,9.25,0.0,26.33,12.99,1.0,192.55,0.0,0.0
+510139,7,2025-01-13 15:54:33,2025-01-06 00:10:18,0.0,0.04,99.0,N,235,28,2,-82.8,0.28,-0.5,11.67,-5.0,0.0,-121.04,-2.5,-1.75
+519623,1,2025-01-07 13:07:25,2025-01-09 21:18:23,3.0,20.85,6.0,Y,150,35,4,26.85,11.0,4.0,36.35,21.98,-1.0,94.62,2.5,0.75
+</dataframe>
+
+
+
+
+Update this initial code:
+```python
+# TODO: import the required dependencies
+import pandas as pd
+
+# Write code here
+
+# Declare result var: 
+type (possible values "string", "number", "dataframe", "plot"). Examples: { "type": "string", "value": f"The highest salary is {highest_salary}." } or { "type": "number", "value": 125 } or { "type": "dataframe", "value": pd.DataFrame({...}) } or { "type": "plot", "value": "temp_chart.png" }
+
+```
+
+
+
+
+
+
+
+### QUERY
+ draw pie chart accordingly which vendor makes the more money with minimum trip_distance 
+
+
+Variable `dfs: list[pd.DataFrame]` is already declared.
+
+At the end, declare "result" variable as a dictionary of type and value.
+
+If you are asked to plot a chart, use "matplotlib" for charts, save as png.
+
+
+Generate python code and return full updated code:
+            
+2025-03-24 17:29:16 [INFO] Code generated:
+            ```
+            import pandas as pd
+import matplotlib.pyplot as plt
+
+# Assuming dfs is already defined and contains the dataframe
+df = dfs[0]
+
+# Filter the dataframe to include only positive trip distances
+filtered_df = df[df['trip_distance'] > 0]
+
+# Group by VendorID, sum the total_amount for each vendor
+grouped_df = filtered_df.groupby('VendorID')['total_amount'].sum().reset_index()
+
+# Determine which vendor makes the most money with minimum trip distance
+max_money_with_min_trip_dist = grouped_df.loc[grouped_df['trip_distance'] == grouped_df['trip_distance'].min(), :]
+
+# Plotting pie chart
+fig, ax = plt.subplots()
+ax.pie(max_money_with_min_trip_dist['total_amount'], labels=max_money_with_min_trip_dist['VendorID'], autopct='%1.1f%%', startangle=90)
+ax.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
+
+# Save the plot
+fig.savefig('temp_chart.png')
+
+# Declare result var
+result = { "type": "plot", "value": "temp_chart.png" }
+            ```
+            
+2025-03-24 17:29:16 [INFO] Executing Step 4: CachePopulation
+2025-03-24 17:29:16 [INFO] Executing Step 5: CodeCleaning
+2025-03-24 17:29:16 [INFO] Saving charts to C:\Users\grant\query2\exports\charts\temp_chart.png
+2025-03-24 17:29:16 [INFO] 
+Code running:
+```
+df = dfs[0]
+filtered_df = df[df['trip_distance'] > 0]
+grouped_df = filtered_df.groupby('VendorID')['total_amount'].sum().reset_index()
+max_money_with_min_trip_dist = grouped_df.loc[grouped_df['trip_distance'] == grouped_df['trip_distance'].min(), :]
+fig, ax = plt.subplots()
+ax.pie(max_money_with_min_trip_dist['total_amount'], labels=max_money_with_min_trip_dist['VendorID'], autopct='%1.1f%%', startangle=90)
+ax.axis('equal')
+fig.savefig('C:/Users/grant/query2/exports/charts/temp_chart.png')
+result = {'type': 'plot', 'value': 'C:/Users/grant/query2/exports/charts/temp_chart.png'}
+        ```
+2025-03-24 17:29:16 [INFO] Executing Step 6: CodeExecution
+2025-03-24 17:29:16 [ERROR] Failed with error: Traceback (most recent call last):
+  File "C:\Users\grant\query2\env\lib\site-packages\pandas\core\indexes\base.py", line 3805, in get_loc
+    return self._engine.get_loc(casted_key)
+  File "index.pyx", line 167, in pandas._libs.index.IndexEngine.get_loc
+  File "index.pyx", line 196, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas\\_libs\\hashtable_class_helper.pxi", line 7081, in pandas._libs.hashtable.PyObjectHashTable.get_item
+  File "pandas\\_libs\\hashtable_class_helper.pxi", line 7089, in pandas._libs.hashtable.PyObjectHashTable.get_item
+KeyError: 'trip_distance'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\grant\query2\env\lib\site-packages\pandasai\pipelines\chat\code_execution.py", line 85, in execute
+    result = self.execute_code(code_to_run, code_context)
+  File "C:\Users\grant\query2\env\lib\site-packages\pandasai\pipelines\chat\code_execution.py", line 174, in execute_code
+    exec(code, environment)
+  File "<string>", line 4, in <module>
+  File "C:\Users\grant\query2\env\lib\site-packages\pandas\core\frame.py", line 4102, in __getitem__
+    indexer = self.columns.get_loc(key)
+  File "C:\Users\grant\query2\env\lib\site-packages\pandas\core\indexes\base.py", line 3812, in get_loc
+    raise KeyError(key) from err
+KeyError: 'trip_distance'
+
+2025-03-24 17:29:16 [WARNING] Failed to execute code retrying with a correction framework [retry number: 1]
+2025-03-24 17:29:16 [INFO] Executing Pipeline: ErrorCorrectionPipeline
+2025-03-24 17:29:16 [INFO] Executing Step 0: ErrorPromptGeneration
+2025-03-24 17:29:16 [INFO] Using prompt: <dataframe>
+dfs[0]:1131455x20
+Unnamed: 0,VendorID,tpep_pickup_datetime,tpep_dropoff_datetime,passenger_count,trip_distance,RatecodeID,store_and_fwd_flag,PULocationID,DOLocationID,payment_type,fare_amount,extra,mta_tax,tip_amount,tolls_amount,improvement_surcharge,total_amount,congestion_surcharge,Airport_fee
+990055,2,2025-01-03 19:26:52,2025-01-03 19:46:58,1.0,34.31,3.0,N,207,141,3,83.0,9.25,0.0,26.33,12.99,1.0,192.55,0.0,0.0
+510139,7,2025-01-13 15:54:33,2025-01-06 00:10:18,0.0,0.04,99.0,N,235,28,2,-82.8,0.28,-0.5,11.67,-5.0,0.0,-121.04,-2.5,-1.75
+519623,1,2025-01-07 13:07:25,2025-01-09 21:18:23,3.0,20.85,6.0,Y,150,35,4,26.85,11.0,4.0,36.35,21.98,-1.0,94.62,2.5,0.75
+</dataframe>
+
+
+The user asked the following question:
+### QUERY
+ draw pie chart accordingly which vendor makes the more money with minimum trip_distance 
+
+
+You generated this python code:
+df = dfs[0]
+filtered_df = df[df['trip_distance'] > 0]
+grouped_df = filtered_df.groupby('VendorID')['total_amount'].sum().reset_index()
+max_money_with_min_trip_dist = grouped_df.loc[grouped_df['trip_distance'] == grouped_df['trip_distance'].min(), :]
+fig, ax = plt.subplots()
+ax.pie(max_money_with_min_trip_dist['total_amount'], labels=max_money_with_min_trip_dist['VendorID'], autopct='%1.1f%%', startangle=90)
+ax.axis('equal')
+fig.savefig('C:/Users/grant/query2/exports/charts/temp_chart.png')
+result = {'type': 'plot', 'value': 'C:/Users/grant/query2/exports/charts/temp_chart.png'}
+
+It fails with the following error:
+Traceback (most recent call last):
+  File "C:\Users\grant\query2\env\lib\site-packages\pandas\core\indexes\base.py", line 3805, in get_loc
+    return self._engine.get_loc(casted_key)
+  File "index.pyx", line 167, in pandas._libs.index.IndexEngine.get_loc
+  File "index.pyx", line 196, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas\\_libs\\hashtable_class_helper.pxi", line 7081, in pandas._libs.hashtable.PyObjectHashTable.get_item
+  File "pandas\\_libs\\hashtable_class_helper.pxi", line 7089, in pandas._libs.hashtable.PyObjectHashTable.get_item
+KeyError: 'trip_distance'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\grant\query2\env\lib\site-packages\pandasai\pipelines\chat\code_execution.py", line 85, in execute
+    result = self.execute_code(code_to_run, code_context)
+  File "C:\Users\grant\query2\env\lib\site-packages\pandasai\pipelines\chat\code_execution.py", line 174, in execute_code
+    exec(code, environment)
+  File "<string>", line 4, in <module>
+  File "C:\Users\grant\query2\env\lib\site-packages\pandas\core\frame.py", line 4102, in __getitem__
+    indexer = self.columns.get_loc(key)
+  File "C:\Users\grant\query2\env\lib\site-packages\pandas\core\indexes\base.py", line 3812, in get_loc
+    raise KeyError(key) from err
+KeyError: 'trip_distance'
+
+
+Fix the python code above and return the new python code:
+2025-03-24 17:29:16 [INFO] Executing Step 1: CodeGenerator
+2025-03-24 17:30:29 [INFO] HTTP Request: POST http://localhost:11434/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-24 17:30:29 [ERROR] Pipeline failed on step 1: No code found in the response
+2025-03-24 17:30:29 [ERROR] Pipeline failed on step 6: No code found in the response
+2025-03-24 17:35:18 [INFO] Question: draw pie chart accordingly which vendor makes the more money with minimum trip_distance 
+
+2025-03-24 17:35:18 [INFO] Running PandasAI with local LLM...
+2025-03-24 17:35:18 [INFO] Prompt ID: 19d7cfa8-07cd-4343-a976-56fe0e92cdcf
+2025-03-24 17:35:18 [INFO] Executing Pipeline: GenerateChatPipeline
+2025-03-24 17:35:19 [INFO] Executing Step 0: ValidatePipelineInput
+2025-03-24 17:35:19 [INFO] Executing Step 1: CacheLookup
+2025-03-24 17:35:19 [INFO] Executing Step 2: PromptGeneration
+2025-03-24 17:35:20 [INFO] Querying without using training data.
+2025-03-24 17:35:21 [INFO] Querying without using training docs.
+2025-03-24 17:35:21 [INFO] Using prompt: <dataframe>
+dfs[0]:1131455x20
+Unnamed: 0,VendorID,tpep_pickup_datetime,tpep_dropoff_datetime,passenger_count,trip_distance,RatecodeID,store_and_fwd_flag,PULocationID,DOLocationID,payment_type,fare_amount,extra,mta_tax,tip_amount,tolls_amount,improvement_surcharge,total_amount,congestion_surcharge,Airport_fee
+605502,2,2025-01-11 14:02:06,2025-01-09 20:18:21,6.0,18.06,4.0,N,99,41,5,-31.0,0.25,4.0,28.26,7.04,-1.0,153.4,2.5,0.75
+915315,1,2025-01-07 20:03:53,2025-01-03 18:34:28,7.0,4.53,99.0,Y,236,204,2,19.05,1.5,-0.5,2.55,24.8,0.0,-14.5,0.0,0.0
+656996,7,2025-01-04 08:13:31,2025-01-03 16:08:17,4.0,27.92,3.0,N,207,61,4,12.99,12.5,4.75,5.77,-21.58,1.0,86.16,-2.5,1.25
+</dataframe>
+
+
+
+
+Update this initial code:
+```python
+# TODO: import the required dependencies
+import pandas as pd
+
+# Write code here
+
+# Declare result var: 
+type (possible values "string", "number", "dataframe", "plot"). Examples: { "type": "string", "value": f"The highest salary is {highest_salary}." } or { "type": "number", "value": 125 } or { "type": "dataframe", "value": pd.DataFrame({...}) } or { "type": "plot", "value": "temp_chart.png" }
+
+```
+
+
+
+
+
+
+
+### QUERY
+ draw pie chart accordingly which vendor makes the more money with minimum trip_distance 
+
+
+Variable `dfs: list[pd.DataFrame]` is already declared.
+
+At the end, declare "result" variable as a dictionary of type and value.
+
+If you are asked to plot a chart, use "matplotlib" for charts, save as png.
+
+
+Generate python code and return full updated code:
+2025-03-24 17:35:21 [INFO] Executing Step 3: CodeGenerator
+2025-03-24 17:36:01 [INFO] HTTP Request: POST http://localhost:11434/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-24 17:36:01 [INFO] Prompt used:
+            <dataframe>
+dfs[0]:1131455x20
+Unnamed: 0,VendorID,tpep_pickup_datetime,tpep_dropoff_datetime,passenger_count,trip_distance,RatecodeID,store_and_fwd_flag,PULocationID,DOLocationID,payment_type,fare_amount,extra,mta_tax,tip_amount,tolls_amount,improvement_surcharge,total_amount,congestion_surcharge,Airport_fee
+605502,2,2025-01-11 14:02:06,2025-01-09 20:18:21,6.0,18.06,4.0,N,99,41,5,-31.0,0.25,4.0,28.26,7.04,-1.0,153.4,2.5,0.75
+915315,1,2025-01-07 20:03:53,2025-01-03 18:34:28,7.0,4.53,99.0,Y,236,204,2,19.05,1.5,-0.5,2.55,24.8,0.0,-14.5,0.0,0.0
+656996,7,2025-01-04 08:13:31,2025-01-03 16:08:17,4.0,27.92,3.0,N,207,61,4,12.99,12.5,4.75,5.77,-21.58,1.0,86.16,-2.5,1.25
+</dataframe>
+
+
+
+
+Update this initial code:
+```python
+# TODO: import the required dependencies
+import pandas as pd
+
+# Write code here
+
+# Declare result var: 
+type (possible values "string", "number", "dataframe", "plot"). Examples: { "type": "string", "value": f"The highest salary is {highest_salary}." } or { "type": "number", "value": 125 } or { "type": "dataframe", "value": pd.DataFrame({...}) } or { "type": "plot", "value": "temp_chart.png" }
+
+```
+
+
+
+
+
+
+
+### QUERY
+ draw pie chart accordingly which vendor makes the more money with minimum trip_distance 
+
+
+Variable `dfs: list[pd.DataFrame]` is already declared.
+
+At the end, declare "result" variable as a dictionary of type and value.
+
+If you are asked to plot a chart, use "matplotlib" for charts, save as png.
+
+
+Generate python code and return full updated code:
+            
+2025-03-24 17:36:01 [INFO] Code generated:
+            ```
+            # TODO: import the required dependencies
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Assuming dfs is already declared
+dfs = [pd.DataFrame({
+    'VendorID': [2, 1, 7],
+    'trip_distance': [18.06, 4.53, 27.92]
+})]
+
+# Combine all dataframes if there are multiple
+df_combined = pd.concat(dfs)
+
+# Filter the data for minimum trip distance
+min_trip_distance = df_combined['trip_distance'].min()
+df_filtered = df_combined[df_combined['trip_distance'] == min_trip_distance]
+
+# Group by VendorID and calculate total_amount
+total_money_per_vendor = df_filtered.groupby('VendorID')['total_amount'].sum().reset_index()
+
+# Plotting the pie chart
+plt.figure(figsize=(8, 6))
+plt.pie(total_money_per_vendor['total_amount'], labels=total_money_per_vendor['VendorID'], autopct='%1.1f%%')
+plt.title('Vendor Earnings with Minimum Trip Distance')
+plt.savefig('temp_chart.png')
+
+# Declare result variable
+result = { "type": "plot", "value": "temp_chart.png" }
+            ```
+            
+2025-03-24 17:36:01 [INFO] Executing Step 4: CachePopulation
+2025-03-24 17:36:01 [INFO] Executing Step 5: CodeCleaning
+2025-03-24 17:36:01 [INFO] Saving charts to C:\Users\grant\query2\exports\charts\temp_chart.png
+2025-03-24 17:36:01 [INFO] 
+Code running:
+```
+df_combined = pd.concat(dfs)
+min_trip_distance = df_combined['trip_distance'].min()
+df_filtered = df_combined[df_combined['trip_distance'] == min_trip_distance]
+total_money_per_vendor = df_filtered.groupby('VendorID')['total_amount'].sum().reset_index()
+plt.figure(figsize=(8, 6))
+plt.pie(total_money_per_vendor['total_amount'], labels=total_money_per_vendor['VendorID'], autopct='%1.1f%%')
+plt.title('Vendor Earnings with Minimum Trip Distance')
+plt.savefig('C:/Users/grant/query2/exports/charts/temp_chart.png')
+result = {'type': 'plot', 'value': 'C:/Users/grant/query2/exports/charts/temp_chart.png'}
+        ```
+2025-03-24 17:36:01 [INFO] Executing Step 6: CodeExecution
+2025-03-24 17:36:01 [INFO] Executing Step 7: ResultValidation
+2025-03-24 17:36:01 [INFO] Answer: {'type': 'plot', 'value': 'C:/Users/grant/query2/exports/charts/temp_chart.png'}
+2025-03-24 17:36:01 [INFO] Executing Step 8: ResultParsing
