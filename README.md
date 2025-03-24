@@ -6,7 +6,7 @@ because the llm requests for lower versoin of pandas but pandasai requests for l
 cmd:
 pip install -U pandas
 
-![alt text](image.png)
+![alt text](./image.png)
 
 When we don’t white list the libraries then we face this issue
 
